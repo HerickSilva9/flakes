@@ -52,7 +52,7 @@
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShell rec {
             packages = with pkgs; [
               rustToolchain
               openssl
@@ -72,7 +72,7 @@
             env = {
               # Required by rust-analyzer
               RUST_SRC_PATH = "${pkgs.rustToolchain}/lib/rustlib/src/rust/library";
-              LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.libGL pkgs.libxkbcommon pkgs.wayland ]}";
+              LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath packages}";
 	      RUST_BACKTRACE = 1;
             };
  

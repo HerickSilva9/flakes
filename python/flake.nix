@@ -9,16 +9,16 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
+      devShells.${system}.default = pkgs.mkShell rec {
         
         packages = with pkgs; [
           python313
           uv
         ];
         
-        # env = {
-        #
-	      # };
+        env = {
+          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath packages}";
+	      };
 
         # shellHook = ''
         # 
