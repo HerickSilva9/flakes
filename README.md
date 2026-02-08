@@ -1,20 +1,63 @@
+# Nix Templates
 
+A collection of Nix flake templates for quickly setting up development environments with direnv integration.
 
-# nix-direnv
-Impede a coleta de lixo das dependências de compilação criando um link simbólico para a derivação do shell resultante no diretório do usuário gcroots(A vida é muito curta para perder o cache de compilação do seu projeto se você estiver em um voo sem conexão com a internet).
-O `nix-direnv` impede o _garbage collection_ das dependências atualmente em uso. Para fazer a limpeza dos symlinks e limpar as dependências que não são mais necessárias basta excluir a pasta `.direnv/` da raíz do projeto e rodar a o garbage collector do `NixOS`.
+## Requirements
 
-
-# nix-ld
-No NixOS é necessário que o nix-ld esteja habilitado para usar Python.
-https://github.com/nix-community/nix-ld
-
+### nix-direnv
+Enable [nix-direnv](https://github.com/nix-community/nix-direnv) in your NixOS configuration:
+```nix
+{
+  programs.direnv.enable = true;
+}
 ```
+
+### nix-ld
+On NixOS, [nix-ld](https://github.com/nix-community/nix-ld) needs to be enabled to use the Python layout with uv.
+
+```nix
 {
   programs.nix-ld.enable = true;
   environment.sessionVariables = {
     LD_LIBRARY_PATH = "$NIX_LD_LIBRARY_PATH";
-    PATH = "$HOME/.cargo/bin";
   };
 }
 ```
+
+## Usage
+
+### Initialize a new project
+```bash
+# Create and enter your project directory
+mkdir my-project
+cd my-project
+
+# Initialize with Python template
+nix flake init -t github:hericksilva9/nix-templates#python
+
+# Allow direnv
+direnv allow
+```
+
+### Available templates
+
+- `python` - Python development environment with direnv and uv
+
+### List all templates
+```bash
+nix flake show github:hericksilva9/nix-templates
+```
+
+### nix-direnv
+nix-direnv prevents garbage collection of dependencies currently in use. 
+- You can reload your environment with:
+```bash
+nix-direnv-reload
+```
+
+- To clean up symlinks and remove dependencies that are no longer needed, simply delete the `.direnv/` folder from the project root and run the NixOS garbage collector.
+
+
+## License
+
+This project is licensed under the MIT License.
