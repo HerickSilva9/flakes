@@ -1,17 +1,40 @@
-# Python-generated files
+# Python
 __pycache__/
-*.py[oc]
+*.py[cod]
+*.so
+*.pyd
+*.dll
+*.egg-info/
+.eggs/
 build/
 dist/
 wheels/
-*.egg-info
+.pytest_cache/
+.coverage
+htmlcov/
 
-# Virtual environments
-.venv
+# Virtualenvs
+.venv/
+venv/
+env/
 
-# direnv
+# Tooling
 .direnv/
+.idea/
+.DS_Store
 
-data/
+# Packaging
+pip-log.txt
+pip-delete-this-directory.txt
 
-*.ipynb
+# Rust / Cargo / PyO3 / maturin
+target/
+**/*.rs.bk
+.maturin/
+
+# Tests
+.tox/
+.cache/
+
+# Docs
+docs/_build/
